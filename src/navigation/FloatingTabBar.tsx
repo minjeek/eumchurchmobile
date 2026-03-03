@@ -9,10 +9,14 @@ import {
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import Feather from 'react-native-vector-icons/Feather';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Feather from 'react-native-vector-icons/Feather';
+// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import HomeIcon from '../../assets/icon_tab_home.svg';
+import OrderIcon from '../../assets/icon_tab_order.svg';
+import EssaylistIcon from '../../assets/icon_tab_essaylist.svg';
+import AnnouncementIcon from '../../assets/icon_tab_announcement.svg';
 
-type TabKey = 'HomeView' | 'WorshipView' | 'EssayListView' | 'InformationView';
+type TabKey = 'HomeView' | 'WorshipView' | 'EssaylistView' | 'AnnouncementView';
 
 const TAB_ITEMS: Array<{
   key: TabKey;
@@ -22,22 +26,46 @@ const TAB_ITEMS: Array<{
   {
     key: 'HomeView',
     label: '홈',
-    renderIcon: (focused) => <Feather name="home" size={26} color={focused ? '#111' : '#111'} />,
+    renderIcon: (focused) => (
+      <HomeIcon
+        width={26}
+        height={26}
+        fill={focused ? '#111' : '#999'}
+      />
+    ),
   },
   {
     key: 'WorshipView',
     label: '예배순서',
-    renderIcon: (focused) => <Feather name="list" size={26} color={focused ? '#111' : '#111'} />,
+    renderIcon: (focused) => (
+      <OrderIcon
+        width={26}
+        height={26}
+        fill={focused ? '#111' : '#999'}
+      />
+    ),
   },
   {
-    key: 'EssayListView',
+    key: 'EssaylistView',
     label: '칼럼',
-    renderIcon: (focused) => <Feather name="file-text" size={26} color={focused ? '#111' : '#111'} />,
+    renderIcon: (focused) => (
+      <EssaylistIcon
+        width={26}
+        height={26}
+        fill={focused ? '#111' : '#999'}
+      />
+    ),
   },
   {
-    key: 'InformationView',
+    key: 'AnnouncementView',
     label: '광고',
-    renderIcon: (focused) => <Feather name="volume-2" size={26} color={focused ? '#111' : '#111'} />,
+    renderIcon: (focused) => (
+      <AnnouncementIcon
+        width={26}
+        height={26}
+        fill={focused ? '#111' : '#999'}
+      />
+    ),
   },
 ];
 
@@ -58,7 +86,7 @@ export default function FloatingTabBar(props: BottomTabBarProps) {
           {TAB_ITEMS.map((item, index) => {
             const routeIndex = state.routes.findIndex(r => r.name === item.key);
             const isFocused = state.index === routeIndex;
-
+            
             return (
               <Pressable
                 key={item.key}
