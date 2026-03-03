@@ -1,10 +1,9 @@
 {
   "expo": {
-    "name": "eumchurchmobile",
+    "name": "이음교회",
     "slug": "eumchurchmobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash-icon.png",
@@ -12,15 +11,12 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "org.eumchurch.www",
+      "deploymentTarget": "17.0"
     },
     "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
+      "package": "org.eumchurch.www"
     },
     "web": {
       "favicon": "./assets/favicon.png"

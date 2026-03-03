@@ -15,9 +15,9 @@ const getSplashImage = () => {
   if (ratio >= 2.1) {
     return require('../../assets/splash.png');   // 긴 화면 (iPhone 14 Pro 등)
   } else if (ratio >= 1.7) {
-    return require('../../assets/splash_short.png'); // 일반 (iPhone SE 등)
+    return require('../../assets/splash-short.png'); // 일반 (iPhone SE 등)
   } else {
-    return require('../../assets/splash_short.png');   // 태블릿 등 와이드
+    return require('../../assets/splash-short.png');   // 태블릿 등 와이드
   }
 };
 
