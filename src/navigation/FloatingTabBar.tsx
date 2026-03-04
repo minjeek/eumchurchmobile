@@ -11,10 +11,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // import Feather from 'react-native-vector-icons/Feather';
 // import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import HomeIcon from '../../assets/icon_tab_home.svg';
-import OrderIcon from '../../assets/icon_tab_order.svg';
-import EssaylistIcon from '../../assets/icon_tab_essaylist.svg';
-import AnnouncementIcon from '../../assets/icon_tab_announcement.svg';
+import HomeIcon from '../../assets/icon-tab-home.svg';
+import OrderIcon from '../../assets/icon-tab-order.svg';
+import EssaylistIcon from '../../assets/icon-tab-essaylist.svg';
+import AnnouncementIcon from '../../assets/icon-tab-announcement.svg';
 
 type TabKey = 'HomeView' | 'WorshipView' | 'EssaylistView' | 'AnnouncementView';
 
@@ -28,8 +28,8 @@ const TAB_ITEMS: Array<{
     label: '홈',
     renderIcon: (focused) => (
       <HomeIcon
-        width={30}
-        height={30}
+        width={28}
+        height={28}
         fill={focused ? '#111' : '#999'}
       />
     ),
@@ -39,8 +39,8 @@ const TAB_ITEMS: Array<{
     label: '예배순서',
     renderIcon: (focused) => (
       <OrderIcon
-        width={30}
-        height={30}
+        width={28}
+        height={28}
         fill={focused ? '#111' : '#999'}
       />
     ),
@@ -61,8 +61,8 @@ const TAB_ITEMS: Array<{
     label: '광고',
     renderIcon: (focused) => (
       <AnnouncementIcon
-        width={30}
-        height={30}
+        width={28}
+        height={28}
         fill={focused ? '#111' : '#999'}
       />
     ),
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   label: {
-    marginTop: 2,
+    marginTop: 4,
     fontSize: 12,
     color: '#111',
   },
