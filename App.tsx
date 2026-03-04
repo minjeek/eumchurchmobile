@@ -17,9 +17,9 @@ import { createBottomTabNavigator, BottomTabBarProps } from '@react-navigation/b
 
 import SplashScreen from './src/components/SplashScreen';
 import HomeView from './src/view/HomeView';
-import EssayListView from './src/view/EssayListView';
-import WorshipView from './src/view/WorshipView';
-import InformationView from './src/view/InformationView';
+import EssaylistView from './src/view/EssaylistView';
+import OrderView from './src/view/OrderView';
+import AnnouncementView from './src/view/AnnouncementView';
 import FloatingTabBar from './src/navigation/FloatingTabBar';
 
 export type RootTabParamList = {
@@ -68,9 +68,9 @@ export default function App() {
             tabBar={(props) => <FloatingTabBar {...props} />}
           >
             <Tab.Screen name="HomeView" component={HomeView} />
-            <Tab.Screen name="WorshipView" component={WorshipView} />
-            <Tab.Screen name="EssayListView" component={EssayListView} />
-            <Tab.Screen name="InformationView" component={InformationView} />
+            <Tab.Screen name="OrderView" component={OrderView} />
+            <Tab.Screen name="EssaylistView" component={EssaylistView} />
+            <Tab.Screen name="AnnouncementView" component={AnnouncementView} />
           </Tab.Navigator>
         </NavigationContainer>
       </Animated.View>

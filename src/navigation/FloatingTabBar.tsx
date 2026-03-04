@@ -28,8 +28,8 @@ const TAB_ITEMS: Array<{
     label: '홈',
     renderIcon: (focused) => (
       <HomeIcon
-        width={26}
-        height={26}
+        width={30}
+        height={30}
         fill={focused ? '#111' : '#999'}
       />
     ),
@@ -39,8 +39,8 @@ const TAB_ITEMS: Array<{
     label: '예배순서',
     renderIcon: (focused) => (
       <OrderIcon
-        width={26}
-        height={26}
+        width={30}
+        height={30}
         fill={focused ? '#111' : '#999'}
       />
     ),
@@ -50,8 +50,8 @@ const TAB_ITEMS: Array<{
     label: '칼럼',
     renderIcon: (focused) => (
       <EssaylistIcon
-        width={26}
-        height={26}
+        width={30}
+        height={30}
         fill={focused ? '#111' : '#999'}
       />
     ),
@@ -61,8 +61,8 @@ const TAB_ITEMS: Array<{
     label: '광고',
     renderIcon: (focused) => (
       <AnnouncementIcon
-        width={26}
-        height={26}
+        width={30}
+        height={30}
         fill={focused ? '#111' : '#999'}
       />
     ),
@@ -131,8 +131,8 @@ const styles = StyleSheet.create({
   },
   pill: {
     width: '86%',
-    maxWidth: 420,
-    height: 86,
+    maxWidth: 292,
+    height: 56,
     borderRadius: 999,
     backgroundColor: '#fff',
     flexDirection: 'row',
@@ -149,13 +149,13 @@ const styles = StyleSheet.create({
     elevation: 12,
   },
   item: {
-    width: 78,
+    width: 67,
     alignItems: 'center',
     justifyContent: 'center',
   },
   label: {
-    marginTop: 6,
-    fontSize: 16,
+    marginTop: 2,
+    fontSize: 12,
     color: '#111',
   },
 });

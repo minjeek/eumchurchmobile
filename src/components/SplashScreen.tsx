@@ -37,7 +37,7 @@ export default function SplashScreen({ onFinish }: Props) {
         useNativeDriver: true,
       }),
       // 3초 유지
-      Animated.delay(3000),
+      Animated.delay(2000),
       // Fade out (0.5s)
       Animated.timing(opacity, {
         toValue: 0,
