@@ -25,6 +25,7 @@ import {
   Rect as SVGRect } from 'react-native-svg';
 
 import { BlurView } from 'expo-blur';
+import HomeLowerSections from './HomeLowerSections';
 
 import LogoText from '../../assets/logo-text.svg';
 import IconMenu from '../../assets/icon-menu.svg';
@@ -303,6 +304,8 @@ const HomeView: React.FC = () => {
             );
           })}
         </View>
+        
+        <HomeLowerSections />
 
       </ScrollView>
     </SafeAreaView>
@@ -313,6 +316,8 @@ const styles = StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: '#ffffff',
+    margin: 0,
+    padding: 0,
   },
   container: {
     flex: 1,
@@ -334,10 +339,6 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     justifyContent: 'space-between',
     overflow: 'hidden',
-    shadowColor: '#9267ea',
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.25,
-    shadowRadius: 16,
     elevation: 8,
   },
   sermonDate: {
@@ -413,7 +414,6 @@ const styles = StyleSheet.create({
   },
   hymnSection: {
     marginTop: 24,
-    marginBottom: 32,
   },
   sectionTitle: {
     fontSize: 17,
