@@ -89,7 +89,7 @@ const ArticleRow: React.FC<{ item: ArticleItem; isLast: boolean }> = ({ item, is
 // ─────────────────────────────────────────────
 // ColumnView
 // ─────────────────────────────────────────────
-const EssaylistView: React.FC = () => {
+const ArticlelistView: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>(ARTICLE_KEYS[0].tab);
 
   const filtered = ARTICLES.filter((a) => a.tab === activeTab);
@@ -132,7 +132,7 @@ const EssaylistView: React.FC = () => {
   );
 };
 
-export default EssaylistView;
+export default ArticlelistView;
 
 // ─────────────────────────────────────────────
 // 스타일

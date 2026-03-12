@@ -25,7 +25,10 @@ import {
   Rect as SVGRect } from 'react-native-svg';
 
 import { BlurView } from 'expo-blur';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+import { RootStackParamList } from '../util/Navigation';
 import { HEADER_TOP_HEIGHT, HORIZONTAL_EDGE_PADDING } from '../util/Constants';
 import HomeLowerSections from './HomeLowerSections';
 
@@ -36,6 +39,7 @@ import IconNoteBlue from '../../assets/icon-note-blue.svg';
 import IconChevronRight from '../../assets/icon-chevron-right.svg';
 import { opacity } from 'react-native-reanimated/lib/typescript/Colors';
 
+type NavProp = NativeStackNavigationProp<RootStackParamList>;
 const HymnArray = ['나의 가는 길', '주의 사랑을 주의 선하심을'];
 
 const getHymnColor = (index: number): string =>
@@ -255,6 +259,8 @@ const MeshGradientBackground: React.FC<{ children: React.ReactNode }> = ({ child
 };
 
 const HomeView: React.FC = () => {
+  const navigation = useNavigation<NavProp>();
+
   return (
     <SafeAreaView style={styles.safe}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -296,6 +302,7 @@ const HomeView: React.FC = () => {
                 key={index}
                 style={[styles.hymnItem, { borderColor: color }]}
                 activeOpacity={0.6}
+                onPress={() => navigation.navigate('HymnView', { hymnId: String(index) })} // 👈
               >
                 <View style={styles.hymnLeft}>
                   <NoteIcon style={styles.noteIcon} />
