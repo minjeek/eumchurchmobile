@@ -16,7 +16,7 @@ import OrderIcon from '../../assets/icon-tab-order.svg';
 import EssaylistIcon from '../../assets/icon-tab-essaylist.svg';
 import AnnouncementIcon from '../../assets/icon-tab-announcement.svg';
 
-type TabKey = 'HomeView' | 'WorshipView' | 'EssaylistView' | 'AnnouncementView';
+type TabKey = 'HomeView' | 'OrderView' | 'EssaylistView' | 'AnnouncementView';
 
 const TAB_ITEMS: Array<{
   key: TabKey;
@@ -35,7 +35,7 @@ const TAB_ITEMS: Array<{
     ),
   },
   {
-    key: 'WorshipView',
+    key: 'OrderView',
     label: '예배순서',
     renderIcon: (focused) => (
       <OrderIcon
