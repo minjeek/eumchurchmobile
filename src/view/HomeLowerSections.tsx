@@ -11,14 +11,15 @@ import {
 
 import { Svg } from 'react-native-svg';
 
+import { HORIZONTAL_EDGE_PADDING } from '../util/Constants';
+
 import ImageSermon from '../../assets/placeholder-sermon.png';
 import ImageColumn from '../../assets/placeholder-column.png';
 import IconPerson from '../../assets/icon-person.svg';
 
 const { width } = Dimensions.get('window');
-const HORIZONTAL_PADDING = 0;
 const CARD_GAP = 10;
-const CARD_WIDTH = (width - HORIZONTAL_PADDING * 2 - CARD_GAP) / 2;
+const CARD_WIDTH = (width - HORIZONTAL_EDGE_PADDING * 2 - CARD_GAP) / 2;
 
 // ─────────────────────────────────────────────
 // 타입
@@ -186,11 +187,11 @@ export default HomeLowerSections;
 // ─────────────────────────────────────────────
 const styles = StyleSheet.create({
   container: {
-    paddingBottom: 40,
+    paddingBottom: 80,
   },
   section: {
     marginTop: 40,
-    paddingHorizontal: HORIZONTAL_PADDING,
+    paddingHorizontal: 0,
   },
   sectionTitle: {
     fontSize: 17,

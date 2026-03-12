@@ -8,6 +8,8 @@ import {
   StatusBar,
 } from 'react-native';
 
+import { HEADER_TOP_HEIGHT } from '../util/Constants';
+
 // ─────────────────────────────────────────────
 // 타입
 // ─────────────────────────────────────────────
@@ -47,7 +49,9 @@ const OrderView: React.FC = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        <Text style={styles.pageTitle}>예배순서</Text>
+        <View style={styles.pageHeader}>
+          <Text style={styles.pageTitle}>예배순서</Text>
+        </View>
 
         <View style={styles.orderList}>
           {ORDER_ITEMS.map((item, index) => (
@@ -92,26 +96,29 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingHorizontal: 24,
-    paddingTop: 32,
     paddingBottom: 48,
+  },
+  pageHeader: {
+    justifyContent: 'center',
+    height: HEADER_TOP_HEIGHT,
   },
   pageTitle: {
     fontSize: 24,
     fontWeight: '800',
     color: '#111',
-    marginBottom: 32,
   },
   orderList: {
     gap: 0,
+    paddingVertical: 24,
   },
   orderRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    paddingVertical: 16,
+    paddingVertical: 12,
   },
   orderTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '700',
     color: '#111',
     flex: 1,
@@ -122,7 +129,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   orderDetail: {
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: '400',
     color: '#333',
     textAlign: 'right',

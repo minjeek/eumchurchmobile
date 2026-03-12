@@ -25,6 +25,8 @@ import {
   Rect as SVGRect } from 'react-native-svg';
 
 import { BlurView } from 'expo-blur';
+
+import { HEADER_TOP_HEIGHT, HORIZONTAL_EDGE_PADDING } from '../util/Constants';
 import HomeLowerSections from './HomeLowerSections';
 
 import LogoText from '../../assets/logo-text.svg';
@@ -322,13 +324,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ffffff',
-    paddingHorizontal: 20,
+    paddingHorizontal: HORIZONTAL_EDGE_PADDING,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 16,
+    height: HEADER_TOP_HEIGHT,
   },
   sermonCard: {
     borderRadius: 32,
