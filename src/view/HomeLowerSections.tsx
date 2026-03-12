@@ -11,15 +11,15 @@ import {
 
 import { Svg } from 'react-native-svg';
 
-import { HORIZONTAL_EDGE_PADDING } from '../util/Constants';
+import { HORIZONTAL_EDGE_PADDING, DEVICE_WIDTH } from '../util/Constants';
 
 import ImageSermon from '../../assets/placeholder-sermon.png';
 import ImageColumn from '../../assets/placeholder-column.png';
 import IconPerson from '../../assets/icon-person.svg';
 
-const { width } = Dimensions.get('window');
+// const { width } = Dimensions.get('window');
 const CARD_GAP = 10;
-const CARD_WIDTH = (width - HORIZONTAL_EDGE_PADDING * 2 - CARD_GAP) / 2;
+const CARD_WIDTH = (DEVICE_WIDTH - HORIZONTAL_EDGE_PADDING * 2 - CARD_GAP) / 2;
 
 // ─────────────────────────────────────────────
 // 타입

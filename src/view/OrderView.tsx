@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   orderTitle: {
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: 17,
+    fontWeight: '600',
     color: '#111',
     flex: 1,
   },
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   orderDetail: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '400',
     color: '#333',
     textAlign: 'right',
