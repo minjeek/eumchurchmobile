@@ -11,47 +11,30 @@ import {
   Dimensions,
 } from 'react-native';
 
+import { useRoute, useNavigation } from '@react-navigation/native';
+
+import { HEADER_TOP_HEIGHT, HORIZONTAL_EDGE_PADDING } from '../util/Constants'
+import { ArticleRouteProp, NavProp } from '../util/Navigation'
+import { ArticleItem } from '../util/Models'
+
 const { width: DEVICE_WIDTH } = Dimensions.get('window');
 
-// ─────────────────────────────────────────────
-// 타입
-// ─────────────────────────────────────────────
-interface ArticleProps {
-  title?: string;
-  body?: string;
-  image?: number; // require(...)
-  onBack?: () => void;
-}
+const ArticleView: React.FC = () => {
+  const route = useRoute<ArticleRouteProp>();
+  const articleItem = route.params as ArticleItem;
+  
+  const navigation = useNavigation<NavProp>();
 
-// ─────────────────────────────────────────────
-// 더미 데이터
-// ─────────────────────────────────────────────
-const DUMMY_TITLE = '목회 칼럼';
-const DUMMY_BODY = `그러므로 남을 판단하는 사람아, 누구를 막론하고 네가 핑계하지 못할 것은 남을 판단하는 것으로 네가 너를 정죄함이니 판단하는 네가 같은 일을 행함이니라이런 일을 행하는 자에게 하나님의 심판이 진리대로 되는 줄 우리가 아노라
-이런 일을 행하는 자를 판단하고도 같은 일을 행하는 사람아, 네가 하나님의 심판을 피할 줄로 생각하느냐
-혹 네가 하나님의 인자하심이 너를 인도하여 회개하게 하심을 알지 못하여 그의 인자하심과 용납하심과 길이 참으심이 풍성함을 멸시하느냐
-다만 네 고집과 회개하지 아니한 마음을 따라 진노의 날 곧 하나님의 의로우신 심판이 나타나는 그 날에 임할 진노를 네게 쌓는도다
-하나님께서 각 사람에게 그 행한 대로 보응하시되창고 선을 행하여 영광과 존귀와 썩지 아니함을 구하는 자에게는 영생으로 하시고`;
-
-// ─────────────────────────────────────────────
-// ArticleDetailView
-// ─────────────────────────────────────────────
-const ArticleView: React.FC<ArticleProps> = ({
-  title = DUMMY_TITLE,
-  body = DUMMY_BODY,
-  image,
-  onBack,
-}) => {
   return (
     <SafeAreaView style={styles.safe}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
 
       {/* 상단 네비게이션 */}
       <View style={styles.navBar}>
-        <TouchableOpacity style={styles.backButton} onPress={onBack} activeOpacity={0.7}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()} activeOpacity={0.7}>
           <Text style={styles.backIcon}>‹</Text>
         </TouchableOpacity>
-        <Text style={styles.navTitle} numberOfLines={1}>{title}</Text>
+        <Text style={styles.navTitle} numberOfLines={1}>{articleItem.title}</Text>
         <View style={styles.backButton} />
       </View>
 
@@ -61,16 +44,17 @@ const ArticleView: React.FC<ArticleProps> = ({
         contentContainerStyle={styles.scrollContent}
       >
         {/* 상단 이미지 — 있을 때만 표시 */}
-        {image && (
+        
+        {articleItem.images.length > 0 && (
           <Image
-            source={image}
+            source={articleItem.images[0]}
             style={styles.headerImage}
             resizeMode="cover"
           />
         )}
 
         {/* 본문 */}
-        <Text style={styles.body}>{body}</Text>
+        <Text style={styles.body}>{articleItem.body}</Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -89,7 +73,7 @@ const styles = StyleSheet.create({
 
   // ── 네비게이션 ──
   navBar: {
-    height: 48,
+    height: HEADER_TOP_HEIGHT,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -132,7 +116,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 28,
     color: '#222',
-    paddingHorizontal: 24,
+    paddingVertical: 30,
+    paddingHorizontal: HORIZONTAL_EDGE_PADDING,
     letterSpacing: -0.2,
   },
 });

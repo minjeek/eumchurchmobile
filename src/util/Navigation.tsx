@@ -1,12 +1,16 @@
-import {
-  Dimensions,
-} from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RouteProp as RouteProperty } from '@react-navigation/native';
 
+import { HymnItem, ArticleItem} from './Models';
+
+export type ArticleRouteProp = RouteProperty<RootStackParamList, 'ArticleView'>;
+export type HymnRouteProp = RouteProperty<RootStackParamList, 'HymnView'>;
+export type NavProp = NativeStackNavigationProp<RootStackParamList>;
 
 export type RootStackParamList = {
   MainTabs: undefined;
-  HymnView: { hymnId?: string };
-  ArticleView: { id: string; title: string; body: string; image?: number };
+  HymnView: HymnItem;
+  ArticleView: ArticleItem;
 };
 
 export type TabParamList = {

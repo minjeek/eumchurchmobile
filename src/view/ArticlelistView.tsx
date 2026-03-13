@@ -11,31 +11,17 @@ import {
   Dimensions,
 } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+
+import { NavProp } from '../util/Navigation';
 import { HORIZONTAL_EDGE_PADDING, HEADER_TOP_HEIGHT, DEVICE_WIDTH } from '../util/Constants';
+import { ArticleType, ArticleItem } from '../util/Models'
 const { width } = Dimensions.get('window');
 
-// ─────────────────────────────────────────────
-// 타입
-// ─────────────────────────────────────────────
-type TabType = 'column' | 'review';
-
-interface ArticleItem {
-  id: string;
-  tab: TabType;
-  date: string;
-  title: string;
-  author: string;
-  image?: number; // require(...)
-}
-
 interface ArticleKey {
-  tab: TabType;
+  tab: ArticleType;
   name: string;
 }
-
-// ─────────────────────────────────────────────
-// 더미 데이터
-// ─────────────────────────────────────────────
 
 const TAB_HORIZONTAL_MARGIN = 30;
 const TAB_PADDING = 4;
@@ -47,13 +33,17 @@ const ARTICLE_KEYS: ArticleKey[] = [
 ]
 
 const ARTICLES: ArticleItem[] = [
-  { id: 'a1', tab: 'column', date: '11/22 (일)', title: '이음교회 팀 소개',    author: 'editer. B' },
-  { id: 'a2', tab: 'column', date: '11/15 (일)', title: '에디터 칼럼',         author: 'editer. B' },
-  { id: 'a3', tab: 'column', date: '11/8 (일)',  title: '10월 컬처 코이노니아', author: 'editer. J' },
-  { id: 'a4', tab: 'column', date: '10/26 (일)', title: '목회 칼럼',           author: '이경수 목사' },
-  { id: 'a5', tab: 'column', date: '10/19 (일)', title: '목회 칼럼',           author: '이경수 목사' },
-  { id: 'a6', tab: 'review', date: '11/22 (일)', title: '지난주 설교 리뷰',    author: 'editer. A' },
-  { id: 'a7', tab: 'review', date: '11/15 (일)', title: '말씀 묵상',           author: 'editer. B' },
+  { id: 'a4', tab: 'column', date: '11/29 (일)', title: '목회 칼럼', author: '이경수 목사', body: `그러므로 남을 판단하는 사람아, 누구를 막론하고 네가 핑계하지 못할 것은 남을 판단하는 것으로 네가 너를 정죄함이니 판단하는 네가 같은 일을 행함이니라이런 일을 행하는 자에게 하나님의 심판이 진리대로 되는 줄 우리가 아노라
+이런 일을 행하는 자를 판단하고도 같은 일을 행하는 사람아, 네가 하나님의 심판을 피할 줄로 생각하느냐
+혹 네가 하나님의 인자하심이 너를 인도하여 회개하게 하심을 알지 못하여 그의 인자하심과 용납하심과 길이 참으심이 풍성함을 멸시하느냐
+다만 네 고집과 회개하지 아니한 마음을 따라 진노의 날 곧 하나님의 의로우신 심판이 나타나는 그 날에 임할 진노를 네게 쌓는도다
+하나님께서 각 사람에게 그 행한 대로 보응하시되창고 선을 행하여 영광과 존귀와 썩지 아니함을 구하는 자에게는 영생으로 하시고`, images: []},
+  { id: 'a1', tab: 'column', date: '11/22 (일)', title: '이음교회 팀 소개', author: 'editer. B', body: '', images: []},
+  { id: 'a2', tab: 'column', date: '11/15 (일)', title: '에디터 칼럼', author: 'editer. B', body: '', images: []},
+  { id: 'a3', tab: 'column', date: '11/8 (일)',  title: '10월 컬처 코이노니아', author: 'editer. J', body: '', images: []},
+  { id: 'a5', tab: 'column', date: '10/19 (일)', title: '목회 칼럼', author: '이경수 목사', body: '', images: []},
+  { id: 'a6', tab: 'review', date: '11/22 (일)', title: '지난주 설교 리뷰', author: 'editer. A', body: '', images: []},
+  { id: 'a7', tab: 'review', date: '11/15 (일)', title: '말씀 묵상', author: 'editer. B', body: '', images: []},
 ];
 
 const THUMB_SIZE = 76;
@@ -61,36 +51,40 @@ const THUMB_SIZE = 76;
 // ─────────────────────────────────────────────
 // 아이템
 // ─────────────────────────────────────────────
-const ArticleRow: React.FC<{ item: ArticleItem; isLast: boolean }> = ({ item, isLast }) => (
-  <TouchableOpacity style={styles.row} activeOpacity={0.75}>
-    {/* 왼쪽 타임라인 */}
-    <View style={styles.timeline}>
-      <View style={styles.timelineDot} />
-      {!isLast && <View style={styles.timelineLine} />}
-    </View>
+const ArticleRow: React.FC<{ item: ArticleItem; isLast: boolean }> = ({ item, isLast }) => {
+  const navigation = useNavigation<NavProp>();
 
-    {/* 텍스트 */}
-    <View style={styles.rowContent}>
-      <Text style={styles.rowDate}>{item.date}</Text>
-      <Text style={styles.rowTitle} numberOfLines={2}>{item.title}</Text>
-      <Text style={styles.rowAuthor}>{item.author}</Text>
-    </View>
+  return (
+    <TouchableOpacity style={styles.row} activeOpacity={0.75}
+    onPress={() => navigation.navigate('ArticleView', item)}>
+      {/* 왼쪽 타임라인 */}
+      <View style={styles.timeline}>
+        <View style={styles.timelineDot} />
+        {!isLast && <View style={styles.timelineLine} />}
+      </View>
 
-    {/* 썸네일 */}
-    <View style={styles.thumb}>
-      {item.image
-        ? <Image source={item.image} style={styles.thumbImage} resizeMode="cover" />
-        : <View style={styles.thumbPlaceholder} />
-      }
-    </View>
-  </TouchableOpacity>
-);
+      {/* 텍스트 */}
+      <View style={styles.rowContent}>
+        <Text style={styles.rowDate}>{item.date}</Text>
+        <Text style={styles.rowTitle} numberOfLines={2}>{item.title}</Text>
+        <Text style={styles.rowAuthor}>{item.author}</Text>
+      </View>
+
+      {/* 썸네일 */}
+      <View style={styles.thumb}>
+        {item.images.length > 0 && (
+          <Image source={item.images[0]} style={styles.thumbImage} resizeMode="cover" />
+        )}
+      </View>
+    </TouchableOpacity>
+  );
+};
 
 // ─────────────────────────────────────────────
 // ColumnView
 // ─────────────────────────────────────────────
 const ArticlelistView: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<TabType>(ARTICLE_KEYS[0].tab);
+  const [activeTab, setActiveTab] = useState<ArticleType>(ARTICLE_KEYS[0].tab);
 
   const filtered = ARTICLES.filter((a) => a.tab === activeTab);
 
@@ -166,7 +160,6 @@ const styles = StyleSheet.create({
   },
   tabActive: {
     backgroundColor: 'white',
-    // borderColor: '#269ED9',
   },
   tabText: {
     fontSize: 16,
@@ -184,7 +177,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   scrollContent: {
-    paddingHorizontal: 20,
+    paddingHorizontal: HORIZONTAL_EDGE_PADDING,
     paddingTop: 8,
     paddingBottom: 32,
   },

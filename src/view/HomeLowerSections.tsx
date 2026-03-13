@@ -7,17 +7,21 @@ import {
   ScrollView,
   StyleSheet,
   Dimensions,
+  ImageSourcePropType,
 } from 'react-native';
 
 import { Svg } from 'react-native-svg';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
+import { ArticleType, ArticleItem } from '../util/Models';;
 import { HORIZONTAL_EDGE_PADDING, DEVICE_WIDTH } from '../util/Constants';
+import { NavProp } from '../util/Navigation';
 
-import ImageSermon from '../../assets/placeholder-sermon.png';
+import ImageReview from '../../assets/placeholder-sermon.png';
 import ImageColumn from '../../assets/placeholder-column.png';
 import IconPerson from '../../assets/icon-person.svg';
 
-// const { width } = Dimensions.get('window');
 const CARD_GAP = 10;
 const CARD_WIDTH = (DEVICE_WIDTH - HORIZONTAL_EDGE_PADDING * 2 - CARD_GAP) / 2;
 
@@ -48,14 +52,6 @@ interface ChurchEvent {
   date: string;
 }
 
-// ─────────────────────────────────────────────
-// 더미 데이터
-// ─────────────────────────────────────────────
-const CONTENT_CARDS: [ContentCard, ContentCard] = [
-  { id: 'c1', tag: 'COLUMN', title: '목회 칼럼',   author: '이경수 목사' },
-  { id: 'c2', tag: 'REVIEW', title: '지난주 설교', author: 'Editor B' },
-];
-
 const BIRTHDAY_PEOPLE: BirthdayPerson[] = [
   { id: 'b1', name: '한명기', date: '10.07' },
   { id: 'b2', name: '손진곤', date: '10.07' },
@@ -85,41 +81,51 @@ const EVENT_ICON_MAP: Record<EventIcon, string> = {
   worship: '🎵',
 };
 
+const ARTICLES: Record<ArticleType, ArticleItem> = {
+  column: { id: 'a4', tab: 'column', date: '11/29 (일)', title: '목회 칼럼', author: '이경수 목사', body: `그러므로 남을 판단하는 사람아, 누구를 막론하고 네가 핑계하지 못할 것은 남을 판단하는 것으로 네가 너를 정죄함이니 판단하는 네가 같은 일을 행함이니라이런 일을 행하는 자에게 하나님의 심판이 진리대로 되는 줄 우리가 아노라
+이런 일을 행하는 자를 판단하고도 같은 일을 행하는 사람아, 네가 하나님의 심판을 피할 줄로 생각하느냐
+혹 네가 하나님의 인자하심이 너를 인도하여 회개하게 하심을 알지 못하여 그의 인자하심과 용납하심과 길이 참으심이 풍성함을 멸시하느냐
+다만 네 고집과 회개하지 아니한 마음을 따라 진노의 날 곧 하나님의 의로우신 심판이 나타나는 그 날에 임할 진노를 네게 쌓는도다
+하나님께서 각 사람에게 그 행한 대로 보응하시되창고 선을 행하여 영광과 존귀와 썩지 아니함을 구하는 자에게는 영생으로 하시고`, images: []},
+  review: { id: 'a6', tab: 'review', date: '11/22 (일)', title: '지난주 설교 리뷰', author: 'editer. A', body: '', images: []},
+  };
+
+const ARTICLE_DEFAULT_THUMBNAIL: Record<ArticleType, ImageSourcePropType> = {
+  column: ImageColumn,
+  review: ImageReview,
+}
+
 // ─────────────────────────────────────────────
 // 콘텐츠 카드 섹션 — 항상 2장 고정
 // ─────────────────────────────────────────────
-const ContentSection: React.FC = () => (
-  <View style={styles.section}>
-    <Text style={styles.sectionTitle}>함께 걷기</Text>
-    <View style={styles.contentCardRow}>
-      {/* {CONTENT_CARDS.map((card) => ( */}
-        <TouchableOpacity key='column' style={styles.contentCard} activeOpacity={0.85}>
-          <View style={styles.contentCardImage}>
-            <Image source={ImageColumn} style={styles.contentCardImagePlaceholder} />
-            <View style={styles.contentTag}>
-              <Text style={styles.contentTagText}>COLUMN</Text>
-            </View>
-            <Text style={styles.contentCardTitle} numberOfLines={1}>{CONTENT_CARDS[0].title}</Text>
-            <Text style={styles.contentCardAuthor} numberOfLines={1}>{CONTENT_CARDS[0].author}</Text>
-          </View>
-          {/* <View style={styles.contentCardBody}>
-          </View> */}
-        </TouchableOpacity>
+const ContentSection: React.FC = () => {
+  const navigation = useNavigation<NavProp>();
+  const column = ARTICLES.column;
+  const review = ARTICLES.review;
 
-        <TouchableOpacity key='sermon' style={styles.contentCard} activeOpacity={0.85}>
-          <View style={styles.contentCardImage}>
-            <Image source={ImageSermon} style={styles.contentCardImagePlaceholder} />
-            <View style={styles.contentTag}>
-              <Text style={styles.contentTagText}>REVIEW</Text>
+  return(
+    <View style={styles.section}>
+      <Text style={styles.sectionTitle}>함께 걷기</Text>
+      <View style={styles.contentCardRow}>
+        {Object.entries(ARTICLES).map(( [articleType, articleItem] ) => (
+          <TouchableOpacity key={articleType} style={styles.contentCard} activeOpacity={0.85}
+          onPress={() => navigation.navigate('ArticleView', articleItem)}>
+            <View style={styles.contentCardImage}>
+              <Image 
+                source={articleItem.images.length > 0 ? { uri: articleItem.images[0] } : ARTICLE_DEFAULT_THUMBNAIL[articleType]}
+                style={styles.contentCardImagePlaceholder} />
+              <View style={styles.contentTag}>
+                <Text style={styles.contentTagText}>{articleType.toUpperCase()}</Text>
+              </View>
+              <Text style={styles.contentCardTitle} numberOfLines={1}>{articleItem.title}</Text>
+              <Text style={styles.contentCardAuthor} numberOfLines={1}>{articleItem.author}</Text>
             </View>
-            <Text style={styles.contentCardTitle} numberOfLines={1}>{CONTENT_CARDS[1].title}</Text>
-            <Text style={styles.contentCardAuthor} numberOfLines={1}>{CONTENT_CARDS[1].author}</Text>
-          </View>
-        </TouchableOpacity>
-      {/* ))} */}
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
 // ─────────────────────────────────────────────
 // 생일 섹션
@@ -172,13 +178,15 @@ const EventSection: React.FC = () => (
 // ─────────────────────────────────────────────
 // 메인 export
 // ─────────────────────────────────────────────
-const HomeLowerSections: React.FC = () => (
-  <View style={styles.container}>
-    <ContentSection />
-    <BirthdaySection />
-    <EventSection />
-  </View>
-);
+const HomeLowerSections: React.FC = () => {
+  return (
+    <View style={styles.container}>
+      <ContentSection />
+      <BirthdaySection />
+      <EventSection />
+    </View>
+  );
+};
 
 export default HomeLowerSections;
 

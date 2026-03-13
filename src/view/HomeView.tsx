@@ -28,8 +28,9 @@ import { BlurView } from 'expo-blur';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { RootStackParamList } from '../util/Navigation';
+import { NavProp } from '../util/Navigation';
 import { HEADER_TOP_HEIGHT, HORIZONTAL_EDGE_PADDING } from '../util/Constants';
+import { HymnItem } from '../util/Models';
 import HomeLowerSections from './HomeLowerSections';
 
 import LogoText from '../../assets/logo-text.svg';
@@ -39,8 +40,11 @@ import IconNoteBlue from '../../assets/icon-note-blue.svg';
 import IconChevronRight from '../../assets/icon-chevron-right.svg';
 import { opacity } from 'react-native-reanimated/lib/typescript/Colors';
 
-type NavProp = NativeStackNavigationProp<RootStackParamList>;
-const HymnArray = ['나의 가는 길', '주의 사랑을 주의 선하심을'];
+const Hymnlist: HymnItem[] = [
+  {id: '1', title: '주님의 그 모든 것이', images: [{image: require('../../assets/praise-01.jpg'), width: 1206, height: 1687}]},
+  {id: '2', title: '주의 자녀로 산다는 것은', images: [{image: require('../../assets/praise-02.jpg'), width: 808, height: 816}, {image: require('../../assets/praise-01.jpg'), width: 1206, height: 1687}]},
+  {id: '3', title: '찬란한 주의 영광으로', images: [{image: require('../../assets/praise-03.jpg'), width: 1200, height: 1800}]},
+];
 
 const getHymnColor = (index: number): string =>
   index % 2 === 0 ? '#2EB460' : '#269ED9';
@@ -198,7 +202,6 @@ const MeshGradientBackground: React.FC<{ children: React.ReactNode }> = ({ child
       pointCircle1.cx += CARD_SIZE * 0.5;
       pointCircle2.cx += CARD_SIZE * 1.2;
     }
-    // , midBGCircle, hugeMixedCircle, whiteCircle, pointCircle0, pointCircle1, pointCircle2
     return { 
       bgColor: shuffledBGColor, 
       gradientCircles: [bigBGCircle, midBGCircle, hugeMixedCircle, whiteCircle, pointCircle0, pointCircle1, pointCircle2] };
@@ -294,7 +297,7 @@ const HomeView: React.FC = () => {
         <View style={styles.hymnSection}>
           <Text style={styles.sectionTitle}>오늘의 찬양</Text>
 
-          {HymnArray.map((title, index) => {
+          {Hymnlist.map((hymnItem, index) => {
             const color = getHymnColor(index);
             const NoteIcon = NoteIcons[index % 2];
             return (
@@ -302,11 +305,11 @@ const HomeView: React.FC = () => {
                 key={index}
                 style={[styles.hymnItem, { borderColor: color }]}
                 activeOpacity={0.6}
-                onPress={() => navigation.navigate('HymnView', { hymnId: String(index) })} // 👈
+                onPress={() => navigation.navigate('HymnView', hymnItem)}
               >
                 <View style={styles.hymnLeft}>
                   <NoteIcon style={styles.noteIcon} />
-                  <Text style={styles.hymnTitle}>{title}</Text>
+                  <Text style={styles.hymnTitle}>{hymnItem.title}</Text>
                 </View>
                 <IconChevronRight width={24} height={24} />
               </TouchableOpacity>
