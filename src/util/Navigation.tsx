@@ -12,6 +12,6 @@ export type RootStackParamList = {
 export type TabParamList = {
   HomeView: undefined;
   OrderView: undefined;
-  EssaylistView: undefined;
+  ArticlelistView: undefined;
   AnnouncementView: undefined;
 };

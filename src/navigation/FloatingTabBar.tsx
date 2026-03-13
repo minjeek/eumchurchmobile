@@ -13,10 +13,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeIcon from '../../assets/icon-tab-home.svg';
 import OrderIcon from '../../assets/icon-tab-order.svg';
-import EssaylistIcon from '../../assets/icon-tab-essaylist.svg';
+import ArticlelistIcon from '../../assets/icon-tab-articlelist.svg';
 import AnnouncementIcon from '../../assets/icon-tab-announcement.svg';
 
-type TabKey = 'HomeView' | 'OrderView' | 'EssaylistView' | 'AnnouncementView';
+type TabKey = 'HomeView' | 'OrderView' | 'ArticlelistView' | 'AnnouncementView';
 
 const TAB_ITEMS: Array<{
   key: TabKey;
@@ -46,10 +46,10 @@ const TAB_ITEMS: Array<{
     ),
   },
   {
-    key: 'EssaylistView',
+    key: 'ArticlelistView',
     label: '칼럼',
     renderIcon: (focused) => (
-      <EssaylistIcon
+      <ArticlelistIcon
         width={30}
         height={30}
         fill={focused ? '#111' : '#999'}
