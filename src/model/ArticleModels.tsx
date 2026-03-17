@@ -9,15 +9,3 @@ export interface ArticleItem {
   body: string;
   images: number[];
 }
-
-export interface HymnItem {
-  id: string;
-  title: string;
-  images: ImageRef[];
-}
-
-export interface ImageRef {
-  image: number;
-  width: number;
-  height: number;
-}

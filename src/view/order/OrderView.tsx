@@ -8,7 +8,7 @@ import {
   StatusBar,
 } from 'react-native';
 
-import { HEADER_TOP_HEIGHT } from '../util/Constants';
+import { HEADER_TOP_HEIGHT, CommonStyles } from '../../util';
 
 // ─────────────────────────────────────────────
 // 타입
@@ -45,9 +45,9 @@ const OrderView: React.FC = () => {
     <SafeAreaView style={styles.safe}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <ScrollView
-        style={styles.container}
+        style={CommonStyles.container}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={CommonStyles.scrollContent}
       >
         <View style={styles.pageHeader}>
           <Text style={styles.pageTitle}>예배순서</Text>
@@ -93,10 +93,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  scrollContent: {
-    paddingHorizontal: 24,
-    paddingBottom: 48,
   },
   pageHeader: {
     justifyContent: 'center',

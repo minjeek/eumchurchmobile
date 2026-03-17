@@ -1,7 +1,7 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp as RouteProperty } from '@react-navigation/native';
 
-import { HymnItem, ArticleItem} from './Models';
+import { HymnItem, ArticleItem} from '../../model';
 
 export type ArticleRouteProp = RouteProperty<RootStackParamList, 'ArticleView'>;
 export type HymnRouteProp = RouteProperty<RootStackParamList, 'HymnView'>;

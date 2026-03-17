@@ -13,9 +13,9 @@ import {
 
 import { useNavigation } from '@react-navigation/native';
 
-import { NavProp } from '../util/Navigation';
-import { HORIZONTAL_EDGE_PADDING, HEADER_TOP_HEIGHT, DEVICE_WIDTH } from '../util/Constants';
-import { ArticleType, ArticleItem } from '../util/Models'
+import { NavProp } from '../navigation/Navigation';
+import { HORIZONTAL_EDGE_PADDING, HEADER_TOP_HEIGHT, DEVICE_WIDTH } from '../../util';
+import { ArticleType, ArticleItem } from '../../model/ArticleModels'
 const { width } = Dimensions.get('window');
 
 interface ArticleKey {

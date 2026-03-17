@@ -15,7 +15,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "org.eumchurch.www",
       "deploymentTarget": "17.0",
-      "icon": "./assets/app-icon.png"
+      "icon": "./assets/app-icon.png",
+      "appleTeamId": "7CGS7L2448"
     },
     "android": {
       "package": "org.eumchurch.www"

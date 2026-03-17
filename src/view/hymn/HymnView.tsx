@@ -11,11 +11,9 @@ import {
 } from 'react-native';
 
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { NavProp, HymnRouteProp } from '../util/Navigation';
-import { HymnItem } from '../util/Models';
-import { DEVICE_WIDTH, HEADER_TOP_HEIGHT, HORIZONTAL_EDGE_PADDING } from '../util/Constants';
-
-import ImagePraise1 from '../../assets/praise-01.jpg';
+import { NavProp, HymnRouteProp } from '../navigation/Navigation';
+import { HymnItem } from '../../model';
+import { DEVICE_WIDTH, HEADER_TOP_HEIGHT, HORIZONTAL_EDGE_PADDING } from '../../util';
 
 const HymnView: React.FC = () => {
   const navigation = useNavigation<NavProp>();

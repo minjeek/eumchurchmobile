@@ -11,10 +11,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // import Feather from 'react-native-vector-icons/Feather';
 // import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import HomeIcon from '../../assets/icon-tab-home.svg';
-import OrderIcon from '../../assets/icon-tab-order.svg';
-import ArticlelistIcon from '../../assets/icon-tab-articlelist.svg';
-import AnnouncementIcon from '../../assets/icon-tab-announcement.svg';
+import HomeIcon from '../../../assets/icon-tab-home.svg';
+import OrderIcon from '../../../assets/icon-tab-order.svg';
+import ArticlelistIcon from '../../../assets/icon-tab-articlelist.svg';
+import AnnouncementIcon from '../../../assets/icon-tab-announcement.svg';
 
 type TabKey = 'HomeView' | 'OrderView' | 'ArticlelistView' | 'AnnouncementView';
 

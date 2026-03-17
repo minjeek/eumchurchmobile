@@ -5,7 +5,6 @@
  * @format
  */
 
-// import { NewAppScreen } from '@react-native/new-app-screen';
 import 'react-native-gesture-handler';
 import { enableScreens } from 'react-native-screens';
 enableScreens(true);
@@ -16,17 +15,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { RootStackParamList, TabParamList } from '../util/Navigation';
+import { RootStackParamList, TabParamList } from './src/view/navigation/Navigation';
 
-import SplashScreen from './src/components/SplashScreen';
-import FloatingTabBar from './src/navigation/FloatingTabBar';
-import HomeView from './src/view/HomeView';
-import OrderView from './src/view/OrderView';
-import ArticlelistView from './src/view/ArticlelistView';
-import AnnouncementView from './src/view/AnnouncementView';
+import SplashScreen from './src/view/splash/SplashScreen';
+import FloatingTabBar from './src/view/navigation/FloatingTabBar';
+import HomeView from './src/view/home/HomeView';
+import OrderView from './src/view/order/OrderView';
+import ArticlelistView from './src/view/articlelist/ArticlelistView';
+import AnnouncementView from './src/view/announcement/AnnouncementView';
 
-import ArticleView from './src/view/ArticleView';
-import HymnView from './src/view/HymnView';
+import ArticleView from './src/view/article/ArticleView';
+import HymnView from './src/view/hymn/HymnView';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();

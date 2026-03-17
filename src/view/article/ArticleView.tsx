@@ -13,9 +13,9 @@ import {
 
 import { useRoute, useNavigation } from '@react-navigation/native';
 
-import { HEADER_TOP_HEIGHT, HORIZONTAL_EDGE_PADDING } from '../util/Constants'
-import { ArticleRouteProp, NavProp } from '../util/Navigation'
-import { ArticleItem } from '../util/Models'
+import { HEADER_TOP_HEIGHT, HORIZONTAL_EDGE_PADDING, CommonStyles } from '../../util'
+import { ArticleRouteProp, NavProp } from '../navigation/Navigation'
+import { ArticleItem } from '../../model'
 
 const { width: DEVICE_WIDTH } = Dimensions.get('window');
 
@@ -39,9 +39,9 @@ const ArticleView: React.FC = () => {
       </View>
 
       <ScrollView
-        style={styles.scroll}
+        style={CommonStyles.container}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={CommonStyles.scrollContent}
       >
         {/* 상단 이미지 — 있을 때만 표시 */}
         
@@ -101,9 +101,6 @@ const styles = StyleSheet.create({
   },
 
   // ── 본문 ──
-  scroll: {
-    flex: 1,
-  },
   scrollContent: {
     paddingBottom: 48,
   },
