@@ -8,7 +8,7 @@ import {
   StatusBar,
 } from 'react-native';
 
-import { HEADER_TOP_HEIGHT, CommonStyles } from '../../util';
+import { HEADER_TOP_HEIGHT, CommonStyles } from '../../utils';
 
 // ─────────────────────────────────────────────
 // 타입

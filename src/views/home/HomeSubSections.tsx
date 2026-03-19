@@ -6,120 +6,39 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Dimensions,
   ImageSourcePropType,
 } from 'react-native';
-
 
 import {
   Canvas, Rect, Paint,
   Turbulence,
-  // mixColors,
 } from '@shopify/react-native-skia';
 
 import { 
   Defs, 
   RadialGradient,
-  // LinearGradient,
   Stop, 
   Svg, 
   Rect as SVGRect } from 'react-native-svg';
 
-// import { BlurView } from 'expo-blur';
-
 import IconNoteGreen from '../../../assets/icon-note-green.svg';
 import IconNoteBlue from '../../../assets/icon-note-blue.svg';
 import IconChevronRight from '../../../assets/icon-chevron-right.svg';
-import { opacity } from 'react-native-reanimated/lib/typescript/Colors';
 
 import { useNavigation } from '@react-navigation/native';
-// import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
-import { ArticleType, ArticleItem, HymnItem } from '../../model';
-import { getMeanColor } from '../../util';
-import { HORIZONTAL_EDGE_PADDING, DEVICE_WIDTH } from '../../util';
+import { getMeanColor } from '../../utils';
+import { HORIZONTAL_EDGE_PADDING, DEVICE_WIDTH } from '../../utils';
 import { NavProp } from '../navigation/Navigation';
 
-import ImageReview from '../../../assets/placeholder-sermon.png';
-import ImageColumn from '../../../assets/placeholder-column.png';
 import IconPerson from '../../../assets/icon-person.svg';
+
+import { hymnList, articleMap, articleDefaultThumbnailMap, personList, eventList, eventIconMap, getSermonInfo } from './HomeViewModel';
 
 const CARD_GAP = 10;
 const CARD_WIDTH = (DEVICE_WIDTH - HORIZONTAL_EDGE_PADDING * 2 - CARD_GAP) / 2;
 
-// ─────────────────────────────────────────────
-// 타입
-// ─────────────────────────────────────────────
-type ContentTag = 'COLUMN' | 'REVIEW' | 'NEWS' | 'EVENT';
-type EventIcon = 'group' | 'cross' | 'pray' | 'worship';
-
-interface ContentCard {
-  id: string;
-  tag: ContentTag;
-  title: string;
-  author: string;
-}
-
-interface BirthdayPerson {
-  id: string;
-  name: string;
-  date: string;
-}
-
-interface ChurchEvent {
-  id: string;
-  icon: EventIcon;
-  title: string;
-  location: string;
-  date: string;
-}
-
-const BIRTHDAY_PEOPLE: BirthdayPerson[] = [
-  { id: 'b1', name: '한명기', date: '10.07' },
-  { id: 'b2', name: '손진곤', date: '10.07' },
-  { id: 'b3', name: '박재형', date: '10.07' },
-  { id: 'b4', name: '김수진', date: '10.07' },
-  { id: 'b5', name: '이경아', date: '10.08' },
-];
-
-const CHURCH_EVENTS: ChurchEvent[] = [
-  { id: 'e1', icon: 'group', title: '컬처 코이노니아', location: '가을 운동회 _ 고양스타디움', date: '11/1(일)' },
-  { id: 'e2', icon: 'cross', title: '전교인 노방전도', location: '신촌역 6번 출구 앞',         date: '11/8(일)' },
-  { id: 'e3', icon: 'pray',  title: '기도 모임',       location: '이음교회',                   date: '11/1(일)' },
-  { id: 'e4', icon: 'cross', title: '전교인 노방전도', location: '신촌역 6번 출구 앞',         date: '11/8(일)' },
-];
-
-const TAG_COLORS: Record<ContentTag, string> = {
-  COLUMN: '#4a4a4a',
-  REVIEW: '#2f2f2f',
-  NEWS:   '#1a5c3a',
-  EVENT:  '#7746d8',
-};
-
-const EVENT_ICON_MAP: Record<EventIcon, string> = {
-  group:   '👥',
-  cross:   '✝️',
-  pray:    '🙏',
-  worship: '🎵',
-};
-
-const ARTICLES: Record<ArticleType, ArticleItem> = {
-  column: { id: 'a4', tab: 'column', date: '11/29 (일)', title: '목회 칼럼', author: '이경수 목사', body: `그러므로 남을 판단하는 사람아, 누구를 막론하고 네가 핑계하지 못할 것은 남을 판단하는 것으로 네가 너를 정죄함이니 판단하는 네가 같은 일을 행함이니라이런 일을 행하는 자에게 하나님의 심판이 진리대로 되는 줄 우리가 아노라
-이런 일을 행하는 자를 판단하고도 같은 일을 행하는 사람아, 네가 하나님의 심판을 피할 줄로 생각하느냐
-혹 네가 하나님의 인자하심이 너를 인도하여 회개하게 하심을 알지 못하여 그의 인자하심과 용납하심과 길이 참으심이 풍성함을 멸시하느냐
-다만 네 고집과 회개하지 아니한 마음을 따라 진노의 날 곧 하나님의 의로우신 심판이 나타나는 그 날에 임할 진노를 네게 쌓는도다
-하나님께서 각 사람에게 그 행한 대로 보응하시되창고 선을 행하여 영광과 존귀와 썩지 아니함을 구하는 자에게는 영생으로 하시고`, images: []},
-  review: { id: 'a6', tab: 'review', date: '11/22 (일)', title: '지난주 설교 리뷰', author: 'editer. A', body: '', images: []},
-  };
-
-const ARTICLE_DEFAULT_THUMBNAIL: Record<ArticleType, ImageSourcePropType> = {
-  column: ImageColumn,
-  review: ImageReview,
-}
-
-
-const { width } = Dimensions.get('window');
-const CARD_SIZE = width - 40;
+const CARD_SIZE = DEVICE_WIDTH - 40;
 
 // 모서리 좌표 (x, y) — 카드 크기 기준
 const CORNERS = [
@@ -129,10 +48,10 @@ const CORNERS = [
   { x: 0,         y: CARD_SIZE }, // 좌하
 ];
 
-const BG_COLORS =             ['#7746d8', '#6d7f4b', '#fe0229', '#2f9bca', '#5b4635', '#3c857c'];
-const BIG_BG_CIRCLE_COLORS =  ['#fb69d6', '#e8e0a0', '#fed000', '#89d9d0', '#3c857c', '#5cab96'];
-const MID_BG_CIRCLE_COLORS =  ['#ffb655', '#faae58', '#c5de5f', '#fccd01', '#a4d2cf', '#cbb77b'];
-const WHITE_CIRCLE_COLORS =   ['#fcebd5', '#e5f7d1', '#fffad4', '#d5de8f', '#d2dddf', '#d2dddf'];
+const BG_COLORS =             ['#da5e5e', '#7746d8', '#5d6219', '#fe0229', '#2f9bca', '#5b4635', '#3c857c', '#5f1e46', '#2c3635', '#824540', '#5e564c', '#2f4e49'];
+const BIG_BG_CIRCLE_COLORS =  ['#a08670', '#fb69d6', '#c3cc78', '#fed000', '#89d9d0', '#3c857c', '#5cab96', '#ad7c92', '#1a535c', '#5d6b6c', '#ee887a', '#bf5d30'];
+const MID_BG_CIRCLE_COLORS =  ['#b3bc83', '#ffb655', '#e7b90c', '#c5de5f', '#fccd01', '#a4d2cf', '#cbb77b', '#bfbfbd', '#b8d3c0', '#9fbdbd', '#ffb7ad', '#c3803a'];
+const WHITE_CIRCLE_COLORS =   ['#f2d1b0', '#fcebd5', '#cadbcb', '#fffad4', '#d5de8f', '#d2dddf', '#d2dddf', '#ab917a', '#cbb5a6', '#d9cfc3', '#c2e5df', '#d1cdc4'];
 
 // ──────────────────────────────────────────────
 // MeshGradientBackground
@@ -141,7 +60,7 @@ export const MeshGradientBackground: React.FC = () => {
   const { bgColor, gradientCircles } = useMemo(() => {
     // 모서리 4개를 섞어서 앞 3개를 배경 그라디언트에, 나머지 1개를 흰 원에 사용
     const shuffledCornerIndexs = [0,1,2,3].sort(() => Math.random() - 0.5);
-    // const shuffledColorIndex = 4;
+    // const shuffledColorIndex = 2;
     const shuffledColorIndex = [...Array(BG_COLORS.length).keys()].sort(() => Math.random() - 0.5)[0];
     const shuffledBigBGColor = BIG_BG_CIRCLE_COLORS[shuffledColorIndex];
     const shuffledMidBGColor = MID_BG_CIRCLE_COLORS[shuffledColorIndex];
@@ -219,7 +138,7 @@ export const MeshGradientBackground: React.FC = () => {
       r: CARD_SIZE*0.8,
       stop: [
         { offset: 0.6, color: shuffledBigBGColor, opacity: 1 },
-        { offset: 1, color: '#fff', opacity: 0 },
+        { offset: 1, color: getMeanColor(shuffledBigBGColor,'#ffffff'), opacity: 0 },
       ]
     }
 
@@ -278,6 +197,7 @@ export const MeshGradientBackground: React.FC = () => {
   const bgR   = x * 0.8;
   const whiteR = x;
   const accentR = x * 0.3;
+  const sermonInfo = getSermonInfo();
 
   return (
     <View style={styles.sermonCard}>
@@ -323,11 +243,11 @@ export const MeshGradientBackground: React.FC = () => {
       </Canvas>
 
       {/* 카드 콘텐츠 */}
-      <Text style={styles.sermonDate}>26년 11월 16일</Text>
+      <Text style={styles.sermonDate}>2026. 3. 15. 제 20호</Text>
 
       <View style={styles.sermonTextArea}>
-        <Text style={styles.sermonTitle}>" 죄의 종이 되었을 때 "</Text>
-        <Text style={styles.sermonRef}>롬 2:10-15</Text>
+        <Text style={styles.sermonTitle}>" {sermonInfo.title} "</Text>
+        <Text style={styles.sermonRef}>{sermonInfo.range}</Text>
       </View>
 
       <TouchableOpacity activeOpacity={0.85} style={styles.glassButton}>
@@ -342,14 +262,8 @@ export const MeshGradientBackground: React.FC = () => {
 };
 
 // ─────────────────────────────────────────────
-// 찬양 목록
+// 찬양 목록 섹션
 // ─────────────────────────────────────────────
-const Hymnlist: HymnItem[] = [
-  {id: '1', title: '주님의 그 모든 것이', images: [{image: require('../../../assets/praise-01.jpg'), width: 1206, height: 1687}]},
-  {id: '2', title: '주의 자녀로 산다는 것은', images: [{image: require('../../../assets/praise-02.jpg'), width: 808, height: 816}, {image: require('../../../assets/praise-01.jpg'), width: 1206, height: 1687}]},
-  {id: '3', title: '찬란한 주의 영광으로', images: [{image: require('../../../assets/praise-03.jpg'), width: 1200, height: 1800}]},
-];
-
 const getHymnColor = (index: number): string =>
   index % 2 === 0 ? '#2EB460' : '#269ED9';
 
@@ -362,7 +276,7 @@ export const HymnListView: React.FC = () => {
     <View style={styles.hymnSection}>
       <Text style={styles.sectionTitle}>오늘의 찬양</Text>
 
-      {Hymnlist.map((hymnItem, index) => {
+      {hymnList.map((hymnItem, index) => {
         const color = getHymnColor(index);
         const NoteIcon = NoteIcons[index % 2];
         return (
@@ -390,19 +304,16 @@ export const HymnListView: React.FC = () => {
 export const ArticleSection: React.FC = () => {
   const navigation = useNavigation<NavProp>();
   
-  const column = ARTICLES.column;
-  const review = ARTICLES.review;
-
   return(
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>함께 걷기</Text>
       <View style={styles.contentCardRow}>
-        {Object.entries(ARTICLES).map(( [articleType, articleItem] ) => (
+        {Object.entries(articleMap).map(( [articleType, articleItem] ) => (
           <TouchableOpacity key={articleType} style={styles.contentCard} activeOpacity={0.85}
           onPress={() => navigation.navigate('ArticleView', articleItem)}>
             <View style={styles.contentCardImage}>
               <Image 
-                source={articleItem.images.length > 0 ? { uri: articleItem.images[0] } : ARTICLE_DEFAULT_THUMBNAIL[articleType]}
+                source={articleItem.images.length > 0 ? { uri: articleItem.images[0] } : articleDefaultThumbnailMap[articleType]}
                 style={styles.contentCardImagePlaceholder} />
               <View style={styles.contentTag}>
                 <Text style={styles.contentTagText}>{articleType.toUpperCase()}</Text>
@@ -428,7 +339,7 @@ export const BirthdaySection: React.FC = () => (
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={styles.birthdayScrollContent}
     >
-      {BIRTHDAY_PEOPLE.map((person) => (
+      {personList.map((person) => (
         <View key={person.id} style={styles.birthdayItem}>
           <IconPerson />
           <Text style={styles.birthdayName}>{person.name}</Text>
@@ -446,11 +357,11 @@ export const EventSection: React.FC = () => (
   <View style={styles.section}>
     <Text style={styles.eventMonthTitle}>2026. 11</Text>
     <View style={styles.eventList}>
-      {CHURCH_EVENTS.map((event, index) => (
+      {eventList.map((event, index) => (
         <View key={event.id}>
           <TouchableOpacity style={styles.eventItem} activeOpacity={0.7}>
             <View style={styles.eventIconBox}>
-              <Text style={styles.eventIconText}>{EVENT_ICON_MAP[event.icon]}</Text>
+              <Text style={styles.eventIconText}>{eventIconMap[event.icon]}</Text>
             </View>
             <View style={styles.eventTextBox}>
               <Text style={styles.eventTitle}>{event.title}</Text>
@@ -458,7 +369,7 @@ export const EventSection: React.FC = () => (
             </View>
             <Text style={styles.eventDate}>{event.date}</Text>
           </TouchableOpacity>
-          {index < CHURCH_EVENTS.length - 1 && <View style={styles.divider} />}
+          {index < eventList.length - 1 && <View style={styles.divider} />}
         </View>
       ))}
     </View>

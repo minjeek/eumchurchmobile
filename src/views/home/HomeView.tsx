@@ -10,7 +10,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 import { NavProp } from '../navigation/Navigation';
-import { HEADER_TOP_HEIGHT, CommonStyles} from '../../util';
+import { HEADER_TOP_HEIGHT, CommonStyles} from '../../utils';
 import { MeshGradientBackground, HymnListView, ArticleSection, BirthdaySection, EventSection } from './HomeSubSections';
 
 import LogoText from '../../../assets/logo-text.svg';

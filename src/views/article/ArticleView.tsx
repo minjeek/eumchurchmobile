@@ -13,9 +13,9 @@ import {
 
 import { useRoute, useNavigation } from '@react-navigation/native';
 
-import { HEADER_TOP_HEIGHT, HORIZONTAL_EDGE_PADDING, CommonStyles } from '../../util'
+import { HEADER_TOP_HEIGHT, HORIZONTAL_EDGE_PADDING, CommonStyles } from '../../utils'
 import { ArticleRouteProp, NavProp } from '../navigation/Navigation'
-import { ArticleItem } from '../../model'
+import { ArticleItem } from '../../models'
 
 const { width: DEVICE_WIDTH } = Dimensions.get('window');
 

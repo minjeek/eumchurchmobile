@@ -9,23 +9,23 @@ import 'react-native-gesture-handler';
 import { enableScreens } from 'react-native-screens';
 enableScreens(true);
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, Animated, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator, BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { RootStackParamList, TabParamList } from './src/view/navigation/Navigation';
+import { RootStackParamList, TabParamList } from './src/views/navigation/Navigation';
 
-import SplashScreen from './src/view/splash/SplashScreen';
-import FloatingTabBar from './src/view/navigation/FloatingTabBar';
-import HomeView from './src/view/home/HomeView';
-import OrderView from './src/view/order/OrderView';
-import ArticlelistView from './src/view/articlelist/ArticlelistView';
-import AnnouncementView from './src/view/announcement/AnnouncementView';
+import SplashScreen from './src/views/splash/SplashScreen';
+import FloatingTabBar from './src/views/navigation/FloatingTabBar';
+import HomeView from './src/views/home/HomeView';
+import OrderView from './src/views/order/OrderView';
+import ArticlelistView from './src/views/articlelist/ArticlelistView';
+import AnnouncementView from './src/views/announcement/AnnouncementView';
 
-import ArticleView from './src/view/article/ArticleView';
-import HymnView from './src/view/hymn/HymnView';
+import ArticleView from './src/views/article/ArticleView';
+import HymnView from './src/views/hymn/HymnView';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();

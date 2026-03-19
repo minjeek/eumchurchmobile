@@ -12,8 +12,8 @@ import {
 
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { NavProp, HymnRouteProp } from '../navigation/Navigation';
-import { HymnItem } from '../../model';
-import { DEVICE_WIDTH, HEADER_TOP_HEIGHT, HORIZONTAL_EDGE_PADDING } from '../../util';
+import { HymnItem } from '../../models';
+import { DEVICE_WIDTH, HEADER_TOP_HEIGHT, HORIZONTAL_EDGE_PADDING } from '../../utils';
 
 const HymnView: React.FC = () => {
   const navigation = useNavigation<NavProp>();

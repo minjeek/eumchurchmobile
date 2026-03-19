@@ -14,8 +14,8 @@ import {
 import { useNavigation } from '@react-navigation/native';
 
 import { NavProp } from '../navigation/Navigation';
-import { HORIZONTAL_EDGE_PADDING, HEADER_TOP_HEIGHT, DEVICE_WIDTH } from '../../util';
-import { ArticleType, ArticleItem } from '../../model/ArticleModels'
+import { HORIZONTAL_EDGE_PADDING, HEADER_TOP_HEIGHT, DEVICE_WIDTH } from '../../utils';
+import { ArticleType, ArticleItem } from '../../models';
 const { width } = Dimensions.get('window');
 
 interface ArticleKey {
@@ -32,7 +32,7 @@ const ARTICLE_KEYS: ArticleKey[] = [
   { tab: 'review', name: '지난 주 설교'},
 ]
 
-const ARTICLES: ArticleItem[] = [
+const articleList: ArticleItem[] = [
   { id: 'a4', tab: 'column', date: '11/29 (일)', title: '목회 칼럼', author: '이경수 목사', body: `그러므로 남을 판단하는 사람아, 누구를 막론하고 네가 핑계하지 못할 것은 남을 판단하는 것으로 네가 너를 정죄함이니 판단하는 네가 같은 일을 행함이니라이런 일을 행하는 자에게 하나님의 심판이 진리대로 되는 줄 우리가 아노라
 이런 일을 행하는 자를 판단하고도 같은 일을 행하는 사람아, 네가 하나님의 심판을 피할 줄로 생각하느냐
 혹 네가 하나님의 인자하심이 너를 인도하여 회개하게 하심을 알지 못하여 그의 인자하심과 용납하심과 길이 참으심이 풍성함을 멸시하느냐
@@ -86,7 +86,7 @@ const ArticleRow: React.FC<{ item: ArticleItem; isLast: boolean }> = ({ item, is
 const ArticlelistView: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ArticleType>(ARTICLE_KEYS[0].tab);
 
-  const filtered = ARTICLES.filter((a) => a.tab === activeTab);
+  const filtered = articleList.filter((a) => a.tab === activeTab);
 
   return (
     <SafeAreaView style={styles.safe}>
